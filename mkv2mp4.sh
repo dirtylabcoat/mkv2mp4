@@ -10,7 +10,7 @@ L=2000
 AUTOCONF=0
 DEFAULTVA=0
 CLEAN=1
-while getopts "f:s:l:anhd" FLAG
+while getopts "f:s:p:l:anhd" FLAG
 do
 	case "$FLAG" in
 		l)
@@ -19,6 +19,10 @@ do
 		s)
 			SLICE=${OPTARG}M
 			;;
+    p)
+      PRESETS=${OPTARG}
+      AUTOCONF=0
+      ;;
     n)
       CLEAN=0
       ;;
@@ -36,10 +40,13 @@ do
 			echo "Turns mkv into mp4 that plays on the PS3"
 			echo "Usage: ./mkv2mp4.sh -l file_size_limit -s slice_size -f file.mkv"
 			echo "Arguments:"
-			echo "-l <size in MB>    Any mkv larger than <size in MB> will be split [default=2000]"
-			echo "-s <size in MB>    If an mkv is split the pieces are <size in MB> each [default=2000]"
+			echo "-l <size in MB>  Any mkv larger than <size in MB> will be split [default=2000]"
+			echo "-s <size in MB>  If an mkv is split the pieces are <size in MB> each [default=2000]"
 			echo "-f <filename.mkv>  The mkv-file to be transformed [MANDATORY]"
-			echo "-h                 Shows this help-text"
+      echo "-p <video-track>:<audio-track>  Presets for video- and audio-track"
+      echo "-d  Use default settings for video- and audio-track (0 and 1)"
+      echo "-a  Attempt to auto-configure video- and audio-track (NOT YET IMPLEMENTED)"
+			echo "-h  Shows this help-text"
 			echo ""		
 			exit 0
 			;;
@@ -66,7 +73,10 @@ if [ ${AUTOCONF} -gt 0 ]; then
 else
 	mkvmerge -i "$MKVFILE" 
 	
-	if [ ${DEFAULTVA} -gt 0 ]; then
+  if [ ${#PRESETS} -gt 0 ]; then
+    VTRACK=$(echo $PRESETS | sed -e 's/^\([0-9]*\)\:.*$/\1/g')
+    ATRACK=$(echo $PRESETS | sed -e 's/^.*\:\([0-9]*\)$/\1/g')
+	elif [ ${DEFAULTVA} -gt 0 ]; then
 		VTRACK=0
 		ATRACK=1
 	else
