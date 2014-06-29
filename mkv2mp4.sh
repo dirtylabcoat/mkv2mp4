@@ -1,7 +1,6 @@
 #!/bin/bash
 # mkv2mp4.sh
-# Copyright (c) 2010 (c) BSD-type License, see License.txt
-# by FighterHayabusa <fighterhayabusa@barbedwirebytecodebaconburger.com>
+# Copyright (c) 2010-2014) BSD-type License, see License.txt
 # Turns mkv into mp4 that plays on the PS3
 # Usage: ./mkv2mp4.sh -f file.mkv
 
@@ -136,7 +135,7 @@ do
 	if [ "$AEXT" == "ac3" ]; then
 		# If audio is AC3
 		a52dec -o wav -g 6 $MKVFILE.tmpaud.$AEXT | neroAacEnc -ignorelength -q 0.20 -if - -of $MKVFILE.tmpaud.aac
-	elif [ "$AEXT" == "xxxdts" ]; then
+	elif [ "$AEXT" == "xxxdts" ]; then # DTS-support disabled for now
 		# If audio is DTS
 		AUDIODUMP=$MKVFILE.audiodump.wav
 		mkfifo $AUDIODUMP
