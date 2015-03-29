@@ -1,6 +1,6 @@
 #!/bin/bash
 # mkv2mp4.sh
-# Copyright (c) 2010-2014) BSD-type License, see License.txt
+# Copyright (c) 2010-2014 BSD-type License, see License.txt
 # Turns mkv into mp4 that plays on the PS3
 # Usage: ./mkv2mp4.sh -f file.mkv
 
@@ -42,9 +42,9 @@ do
 			echo "-l <size in MB>  Any mkv larger than <size in MB> will be split [default=2000]"
 			echo "-s <size in MB>  If an mkv is split the pieces are <size in MB> each [default=2000]"
 			echo "-f <filename.mkv>  The mkv-file to be transformed [MANDATORY]"
-      echo "-p <video-track>:<audio-track>  Presets for video- and audio-track"
-      echo "-d  Use default settings for video- and audio-track (0 and 1)"
-      echo "-a  Attempt to auto-configure video- and audio-track (NOT YET IMPLEMENTED)"
+            echo "-p <video-track>:<audio-track>  Presets for video- and audio-track"
+            echo "-d  Use default settings for video- and audio-track (0 and 1)"
+            echo "-a  Attempt to auto-configure video- and audio-track (NOT YET IMPLEMENTED)"
 			echo "-h  Shows this help-text"
 			echo ""		
 			exit 0
